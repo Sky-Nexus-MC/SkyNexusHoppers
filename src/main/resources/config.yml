@@ -1,0 +1,29 @@
+# SkyNexusHoppers Configuration
+
+item:
+  name: "&b&lChunk Hopper"
+  lore:
+    - "&7Collects items in the"
+    - "&7entire chunk!"
+  glint: true
+
+messages:
+  prefix: "&8[&bSNH&8] "
+  give-success: "&aGave &e%amount% &achunk hoppers to &e%player%&a."
+  receive: "&aYou received &e%amount% &achunk hoppers."
+  player-not-found: "&cPlayer not found."
+  invalid-amount: "&cInvalid amount specified."
+  no-permission: "&cYou do not have permission to use this."
+
+# Filter Settings
+filter:
+  # If true, the hopper will ONLY pick up items listed in the 'whitelist'.
+  # If false, the hopper will pick up EVERYTHING.
+  enabled: true
+  whitelist:
+    - DIAMOND
+    - GOLD_INGOT
+    - IRON_INGOT
+    - EMERALD
+    - ROTTEN_FLESH
+    - CACTUS

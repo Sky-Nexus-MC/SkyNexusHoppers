@@ -1,0 +1,14 @@
+name: SkyNexusHoppers
+version: 1.0.0
+main: rimon.skyNexusHoppers.SkyNexusHoppers
+api-version: 1.21
+authors: [Rimon]
+permissions:
+  skynexushoppers.admin:
+    description: Allows giving chunk hoppers
+    default: op
+commands:
+  snh:
+    description: Main command for SkyNexusHoppers
+    usage: /snh give <player> <amount>
+    permission: skynexushoppers.admin
