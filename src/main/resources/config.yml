@@ -1,7 +1,7 @@
 # SkyNexusHoppers Configuration
 
 item:
-  name: "&b&lChunk Hopper"
+  name: "&b&lSkyNexus Chunk Hopper"
   lore:
     - "&7Collects items in the"
     - "&7entire chunk!"
@@ -14,11 +14,9 @@ messages:
   player-not-found: "&cPlayer not found."
   invalid-amount: "&cInvalid amount specified."
   no-permission: "&cYou do not have permission to use this."
+  inventory-full: "&cYou cannot break this hopper because your inventory is full!"
 
-# Filter Settings
 filter:
-  # If true, the hopper will ONLY pick up items listed in the 'whitelist'.
-  # If false, the hopper will pick up EVERYTHING.
   enabled: true
   whitelist:
     - DIAMOND

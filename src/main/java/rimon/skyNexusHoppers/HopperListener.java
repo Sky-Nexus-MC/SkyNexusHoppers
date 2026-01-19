@@ -1,10 +1,12 @@
 package rimon.skyNexusHoppers;
 
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.*;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Hopper;
 import org.bukkit.block.TileState;
 import org.bukkit.entity.Item;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -57,23 +59,32 @@ public class HopperListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onBreak(BlockBreakEvent event) {
         BlockState state = event.getBlock().getState();
+        Player player = event.getPlayer();
 
+        if (player.getGameMode() == GameMode.CREATIVE) return;
         if (state instanceof TileState) {
             TileState tileState = (TileState) state;
+
             if (tileState.getPersistentDataContainer().has(SkyNexusHoppers.CHUNK_HOPPER_KEY, PersistentDataType.BYTE)) {
+                ItemStack itemToGive = plugin.getChunkHopperItem(1);
+
+                if (player.getInventory().firstEmpty() == -1) {
+                    event.setCancelled(true);
+                    String msg = plugin.getConfig().getString("messages.inventory-full", "&cInventory Full!");
+                    player.sendMessage(LegacyComponentSerializer.legacyAmpersand().deserialize(msg));
+                    return;
+                }
 
                 event.setDropItems(false);
-                event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), plugin.getChunkHopperItem(1));
-
+                player.getInventory().addItem(itemToGive);
                 String locationStr = String.format("World: %s, X: %d, Y: %d, Z: %d",
                         event.getBlock().getWorld().getName(),
                         event.getBlock().getX(),
                         event.getBlock().getY(),
                         event.getBlock().getZ());
 
-                plugin.getLogger().info("[Break] Player " + event.getPlayer().getName() +
+                plugin.getLogger().info("[Break] Player " + player.getName() +
                         " broke a Chunk Hopper at " + locationStr);
-                event.getPlayer().sendMessage("" + ChatColor.RED + "Chunk Hopper Removed!");
             }
         }
     }
